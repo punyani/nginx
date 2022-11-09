@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<!--create an input  that store the value in an id called val -->
+<input type="text" id="val">
+<!--create a button that will call the function called "myFunction"-->
+<button onclick="myFunction()">TEST</button>
+<button onclick="myFunction2()">API</button>
+<button onclick="myFunction3()">API Prods</button>
+</body>
+<!--create script to send request to  website-->
+<script>
+
+    var token  =  "";
+    function myFunction() {
+        axios.get('https://api.jungopharm.dev/test')
+            .then(function (response) {
+                // handle success
+                console.log(response);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+
+    }
+
+    function myFunction2() {
+        var body = {
+            "email": "Vallie.Yost@hotmail.com",
+            "password": "12345678"
+        }
+        axios.post('https://api.jungopharm.dev/api/auth/login', body)
+            .then(function (response) {
+                response = response.data;
+                token = response.accessToken;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+    }
+
+    function myFunction3() {
+        const AuthStr = 'Bearer '.concat(token);
+        axios.get('https://api.jungopharm.dev/api/products/all', { headers: { Authorization: AuthStr } })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+    }
+    function myFunction4() {
+
+
+        axios.post('https://api.jungopharm.dev/sms/message', body)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+    }
+</script>
+</html>
